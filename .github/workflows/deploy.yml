@@ -28,6 +28,11 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
+        with:
+          lfs: 'true'
+  
+      - name: Git LFS Pull
+        run: git lfs pull
 
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ${{ env.REPO_NAME }}:${{ env.IMAGE_TAG }}
