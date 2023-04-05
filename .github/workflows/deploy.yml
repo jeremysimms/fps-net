@@ -9,13 +9,13 @@ on:
         description: "Image Name (commit SHA)"
         required: false
 
-environment: "production"
 concurrency: "production"
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    environment: "production"
     env:
       IMAGE_TAG: ${{ github.event.inputs.image_tag || github.sha }}
       SERVICE_NAME: ${{ vars.ECS_SERVICE_NAME }}
