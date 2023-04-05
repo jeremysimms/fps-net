@@ -55,7 +55,7 @@ jobs:
 
       - name: Remove Extra Config
         run: |
-          echo "`jq '.runtimePlatform=null' taskDefinition.json`" > taskDefinition.json
+          echo "`jq '.runtimePlatform=null' task-definition.json`" > task-definition.json
 
       - name: Update Task Definition
         id: update-task-def
@@ -68,7 +68,7 @@ jobs:
       - name: Deploy to Amazon ECS service
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ${{ steps.update-task-def-2.outputs.task-definition }}
+          task-definition: ${{ steps.update-task-def.outputs.task-definition }}
           service: ${{ env.SERVICE_NAME }}
           cluster: ${{ env.CLUSTER_NAME }}
           force-new-deployment: true
