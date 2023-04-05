@@ -3,6 +3,11 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Image Name (commit SHA)"
+        required: false
 
 environment: "production"
 concurrency: "production"
@@ -13,12 +18,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_TAG: ${{ github.event.inputs.image_tag || github.sha }}
-      SERVICE_NAME: screenshot-classifier
-      CLUSTER_NAME: screenshot-classifier
-      REPO_NAME: screenshot-classifier
-      CONTAINER_NAME: screenshot-classifier
-      AWS_REGION: us-east-2
-      TASK_DEFINITION_NAME: screenshot-classifier
+      SERVICE_NAME: ${{ vars.ECS_SERVICE_NAME }}
+      CLUSTER_NAME: ${{ vars.ECS_CLUSTER_NAME }}
+      REPO_NAME: ${{ vars.ECR_REPO_NAME }}
+      CONTAINER_NAME: ${{ vars.ECR_CONTAINER_NAME }}
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      TASK_DEFINITION_NAME: ${{ vars.ECS_TASK_DEFINITION_NAME }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
