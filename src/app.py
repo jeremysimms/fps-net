@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 app = Flask(__name__)
-model_location = os.environ['MODEL_LOCATION']
+model_location = "model.pkl"
 learn = None
 
 @app.before_first_request
