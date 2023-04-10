@@ -23,7 +23,7 @@ jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment }}
+    environment: ${{ github.event.inputs.environment || "staging" }}
     env:
       IMAGE_TAG: ${{ github.event.inputs.image_tag || github.sha }}
       SERVICE_NAME: ${{ vars.ECS_SERVICE_NAME }}
