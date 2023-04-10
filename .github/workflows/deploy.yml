@@ -6,16 +6,24 @@ on:
   workflow_dispatch:
     inputs:
       image_tag:
-        description: "Image Name (commit SHA)"
+        description: "Image Tag (commit SHA, default to head of branch)"
         required: false
+      environment:
+        description: 'Environment (default staging)'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+        - staging
+        - production
 
-concurrency: "production"
+concurrency: ${{ github.ref }}
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
-    environment: "production"
+    environment: ${{ github.event.inputs.environment }}
     env:
       IMAGE_TAG: ${{ github.event.inputs.image_tag || github.sha }}
       SERVICE_NAME: ${{ vars.ECS_SERVICE_NAME }}
