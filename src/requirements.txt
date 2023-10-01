@@ -1,0 +1,7 @@
+torch 
+torchvision
+fastai
+boto3 
+python-dotenv 
+gunicorn 
+flask
